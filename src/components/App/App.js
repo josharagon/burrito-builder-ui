@@ -9,13 +9,20 @@ class App extends Component {
     super();
     this.state= {
       allOrders: [],
+      error: ''
     }
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     getOrders()
       .then(allBurritos => this.setState({allOrders: allBurritos.orders}))
-      .catch(err => console.error('Error fetching:', err));
+      .catch(err => this.setState({error: err.message}));
+  }
+
+  checkForError = () => {
+    if(this.state.error) {
+      return (<h2>Error fetching orders. Try refreshing your browser.</h2>)
+    }
   }
 
   addNewOrder = (name, ingredients) => {
@@ -31,7 +38,8 @@ class App extends Component {
           <h1>Burrito Builder</h1>
           <OrderForm addOrder={this.addNewOrder}/>
         </header>
-        <Orders orders={this.state.allOrders}/>
+        {this.checkForError() }
+        { !this.state.error && <Orders orders={this.state.allOrders}/>}
       </main>
     );
   }
