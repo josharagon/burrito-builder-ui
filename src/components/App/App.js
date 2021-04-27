@@ -41,7 +41,7 @@ class App extends Component {
     return (
       <main className="App">
         <header>
-          <h1>🌯 Burrito Builder🌯 </h1>
+          <h1><span role='img' aria-label='burrito emoji'>🌯 </span>Da Burrito Buildah<span role='img'  aria-label='burrito emoji'>🌯 </span></h1>
           <OrderForm addOrder={this.addNewOrder}/>
         </header>
         {this.checkForError() }
