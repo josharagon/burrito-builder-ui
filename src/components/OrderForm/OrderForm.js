@@ -6,7 +6,8 @@ class OrderForm extends Component {
     this.props = props;
     this.state = {
       name: '',
-      ingredients: []
+      ingredients: [],
+      completed: true,
     };
   }
 
@@ -17,7 +18,8 @@ class OrderForm extends Component {
       this.props.addOrder(this.state.name, this.state.ingredients);
       this.clearInputs();
     } else {
-      alert('Please enter a Name and select ingredients.')
+      e.preventDefault();
+      this.setState({completed: false})
     }
   }
 
@@ -34,8 +36,14 @@ class OrderForm extends Component {
     }
   }
 
+  warnCustomer = () => {
+    if(!this.state.completed) {
+      return(<h4>Please fill out every input field</h4>)
+    }
+  }
+
   clearInputs = () => {
-    this.setState({name: '', ingredients: []});
+    this.setState({name: '', ingredients: [], completed: true});
   }
 
   render() {
@@ -59,7 +67,7 @@ class OrderForm extends Component {
         />
 
         { ingredientButtons }
-
+        { this.warnCustomer() }
         <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
 
         <button id='submit-button' onClick={e => this.handleSubmit(e)}>
