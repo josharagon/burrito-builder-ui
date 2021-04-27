@@ -46,4 +46,31 @@ describe('Placing Orders', () => {
     .get('#submit-button').click()
     cy.get('section').children().should('have.length', 4)
   })
+
+  describe('Error Handling', () => {
+    beforeEach(() => {
+      cy.fixture('burritoMock.json')
+      .then(orders => {
+          cy.intercept('GET', 'http://localhost:3001/api/v1/orders', {
+              statusCode: 200,
+              body: ''
+          })
+      cy.visit('http://localhost:3000/')
+      })
+    })
+    it('Should have appropriate message if not orders exist', () => {
+      cy.get('p').contains('No orders yet!')
+    })
+
+    it('Should warn customer if they have not filled out all fields', () => {
+      cy.get('input').type('yomama')
+      .get('#submit-button').click()
+      .get('h4').contains('Please fill out every input field')
+      .get('input').clear()
+      
+      cy.get('#beans').click()
+      .get('#submit-button').click()
+      .get('h4').contains('Please fill out every input field')
+    })
+  })
 })
