@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './OrderForm.css'
 
 class OrderForm extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class OrderForm extends Component {
 
   warnCustomer = () => {
     if(!this.state.completed) {
-      return(<h4>Please fill out every input field</h4>)
+      return(<h4 className='error'>Please fill out every input field</h4>)
     }
   }
 
