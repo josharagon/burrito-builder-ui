@@ -16,6 +16,15 @@ class OrderForm extends Component {
     this.clearInputs();
   }
 
+  handleIngredientChange = e => {
+    e.preventDefault();
+    if(!this.state.ingredients.includes(e.target.value)){
+    this.setState(({ingredients: this.state.ingredients.concat(e.target.value)}))
+    } else {
+      return
+    }
+  }
+
   clearInputs = () => {
     this.setState({name: '', ingredients: []});
   }
@@ -24,7 +33,7 @@ class OrderForm extends Component {
     const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
     const ingredientButtons = possibleIngredients.map(ingredient => {
       return (
-        <button key={ingredient} name={ingredient} onClick={e => this.handleIngredientChange(e)}>
+        <button key={ingredient} name={ingredient} value={ingredient} onClick={e => this.handleIngredientChange(e)}>
           {ingredient}
         </button>
       )
