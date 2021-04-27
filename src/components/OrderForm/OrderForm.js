@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import letsGo from '../../lesgo.mp3'
 import './OrderForm.css'
 
 class OrderForm extends Component {
@@ -12,12 +13,16 @@ class OrderForm extends Component {
     };
   }
 
+orderConfirmed = () => {
+  new Audio(letsGo).play();
+}
 
   handleSubmit = e => {
     if(this.state.name && this.state.ingredients.length){
       e.preventDefault();
       this.props.addOrder(this.state.name, this.state.ingredients);
       this.clearInputs();
+      this.orderConfirmed();
     } else {
       e.preventDefault();
       this.setState({completed: false})
