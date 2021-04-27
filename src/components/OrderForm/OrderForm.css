@@ -1,3 +1,15 @@
+.ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 5px;
+  align-items: center;
+} 
+.ingredients > button {
+  height: 20px;
+  margin: 5px;
+}
+
 .error {
   color: red;
 }

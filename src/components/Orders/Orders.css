@@ -3,6 +3,9 @@
   display: inline-block;
   margin: 10px;
   background-color: #FFF;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.603) 0px 1px 15px 0px;
+
 }
 
 .ingredient-list {

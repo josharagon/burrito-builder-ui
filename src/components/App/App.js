@@ -21,7 +21,7 @@ class App extends Component {
 
   checkForError = () => {
     if(this.state.error) {
-      return (<h2>Error fetching orders. Try refreshing your browser.</h2>)
+      return (<h2 className='error'>Error fetching orders. Try refreshing your browser.</h2>)
     }
   }
 
@@ -31,11 +31,17 @@ class App extends Component {
     .then((order) => this.setState({allOrders: this.state.allOrders.concat(order)}))
   }
 
+  // deleteExistingOrder = (e) => {
+  //   deleteOrder(e.target.id)
+  //   .then(reviews => console.log(reviews))
+    
+  // }
+
   render() {
     return (
       <main className="App">
         <header>
-          <h1>Burrito Builder</h1>
+          <h1>🌯 Burrito Builder🌯 </h1>
           <OrderForm addOrder={this.addNewOrder}/>
         </header>
         {this.checkForError() }
