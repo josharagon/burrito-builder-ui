@@ -21,6 +21,7 @@ describe('Initial Page View', () => {
   it('Should show pre-existing orders', () => {
     cy.get('section').children().should('have.length', 3)
   })
+
 })  
 
 describe('Placing Orders', () => {
@@ -58,8 +59,8 @@ describe('Placing Orders', () => {
       cy.visit('http://localhost:3000/')
       })
     })
-    it('Should have appropriate message if not orders exist', () => {
-      cy.get('p').contains('No orders yet!')
+    it('Should have appropriate message if error while fetching orders', () => {
+      cy.get('h2').contains('Error fetching orders')
     })
 
     it('Should warn customer if they have not filled out all fields', () => {
@@ -72,5 +73,22 @@ describe('Placing Orders', () => {
       .get('#submit-button').click()
       .get('h4').contains('Please fill out every input field')
     })
+  })
+
+  describe('No Orders', () => {
+    beforeEach(() => {
+      cy.fixture('emptyMock.json')
+      .then(orders => {
+          cy.intercept('GET', 'http://localhost:3001/api/v1/orders', {
+              statusCode: 200,
+              body: orders
+          })
+      cy.visit('http://localhost:3000/')
+      })
+    })
+
+    it('should show appropriate message if no current orders exist', () => {
+        cy.get('p').last().contains('No orders yet!')
+  })
   })
 })
